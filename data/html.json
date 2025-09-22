@@ -1,0 +1,64 @@
+{
+  "questions": [
+    { 
+      "question": "Quel élément crée un lien ?", 
+      "reponses": ["\u003Clink\u003E", "\u003Ca\u003E", "\u003Chref\u003E"], 
+      "correcte": [1], 
+      "theme": "html" 
+    },
+    { 
+      "question": "Quel attribut définit le texte alternatif d'une image ?", 
+      "reponses": ["alt", "title", "src"], 
+      "correcte": [0], 
+      "theme": "html" 
+    },
+    { 
+      "question": "Quel élément crée un paragraphe ?", 
+      "reponses": ["\u003Cp\u003E", "\u003Cpara\u003E", "\u003Ctext\u003E"], 
+      "correcte": [0], 
+      "theme": "html" 
+    },
+    { 
+      "question": "Quel élément définit un titre de niveau 1 ?", 
+      "reponses": ["\u003Ch1\u003E", "\u003Ctitle\u003E", "\u003Cheader\u003E"], 
+      "correcte": [0], 
+      "theme": "html" 
+    },
+    { 
+      "question": "Quel attribut définit l’URL d’une image ?", 
+      "reponses": ["src", "href", "link"], 
+      "correcte": [0], 
+      "theme": "html" 
+    },
+    { 
+      "question": "Quel élément crée une liste non ordonnée ?", 
+      "reponses": ["\u003Col\u003E", "\u003Cul\u003E", "\u003Cli\u003E"], 
+      "correcte": [1], 
+      "theme": "html" 
+    },
+    { 
+      "question": "Quel élément définit un tableau ?", 
+      "reponses": ["\u003Ctable\u003E", "\u003Ctr\u003E", "\u003Ctd\u003E"], 
+      "correcte": [0], 
+      "theme": "html" 
+    },
+    { 
+      "question": "Quel élément HTML crée un bouton ?", 
+      "reponses": ["\u003Cbutton\u003E", "\u003Cinput\u003E", "\u003Csubmit\u003E"], 
+      "correcte": [0], 
+      "theme": "html" 
+    },
+    { 
+      "question": "Quel attribut définit le type d’un input ?", 
+      "reponses": ["type", "value", "name"], 
+      "correcte": [0], 
+      "theme": "html" 
+    },
+    { 
+      "question": "Quel élément HTML ajoute un saut de ligne ?", 
+      "reponses": ["\u003Cbr\u003E", "\u003Chr\u003E", "\u003Clb\u003E"], 
+      "correcte": [0], 
+      "theme": "html" 
+    }
+  ]
+}

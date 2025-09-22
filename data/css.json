@@ -1,0 +1,64 @@
+{
+  "questions": [
+    { 
+      "question": "Comment change-t-on la couleur du texte ?", 
+      "reponses": ["color", "background-color", "font-color"],
+      "correcte": [0], 
+      "theme": "css"
+    },
+    { 
+      "question": "Comment centre-t-on un élément horizontalement ?", 
+      "reponses": ["text-align: center;", "align:center;", "justify:center;"], 
+      "correcte": [0], 
+      "theme": "css" 
+    },
+    { 
+      "question": "Quelle propriété change la taille de la police ?", 
+      "reponses": ["font-style", "font-size", "text-size"], 
+      "correcte": [1], 
+      "theme": "css" 
+    },
+    { 
+      "question": "Comment applique-t-on un margin de 10px ?", 
+      "reponses": ["margin:10px;", "padding:10px;", "border:10px;"], 
+      "correcte": [0], 
+      "theme": "css" 
+    },
+    { 
+      "question": "Quelle propriété change l'arrière-plan ?", 
+      "reponses": ["background-color", "color", "bg-color"], 
+      "correcte": [0], 
+      "theme": "css" 
+    },
+    { 
+      "question": "Quelle propriété contrôle la visibilité ?", 
+      "reponses": ["display", "visibility", "show"], 
+      "correcte": [1], 
+      "theme": "css" 
+    },
+    { 
+      "question": "Quelle propriété modifie l’opacité ?", 
+      "reponses": ["opacity", "transparent", "alpha"], 
+      "correcte": [0], 
+      "theme": "css" 
+    },
+    { 
+      "question": "Comment applique-t-on un border-radius ?", 
+      "reponses": ["border-radius:10px;", "border:radius(10px);", "radius:10px;"], 
+      "correcte": [0], 
+      "theme": "css" 
+    },
+    { 
+      "question": "Comment change-t-on l’espacement entre les lettres ?", 
+      "reponses": ["letter-spacing", "word-spacing", "text-spacing"], 
+      "correcte": [0], 
+      "theme": "css" 
+    },
+    { 
+      "question": "Quelle propriété permet un texte en gras ?", 
+      "reponses": ["font-weight", "font-style", "text-weight"], 
+      "correcte": [0], 
+      "theme": "css" 
+    }
+  ]
+}
