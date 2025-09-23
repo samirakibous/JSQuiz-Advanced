@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSQuizStarter</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="bouton-acceuil">
+      <p id="bienvenue">bienvenue sur le quiz javascript</p>
+      <button id="commencer">
+        commencer le quiz <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+    <div class="quitter">
+      <button id="quitter">quitter</button>
+    </div>
+    <div class="timer">Temps restant : <span id="timer">15</span>s</div>
+    <div class="pseudo">
+      <h1>Bienvenue ! Merci d'entrer votre pseudo pour commancer :</h1>
+      <input type="text" name="pseudoname" id="pseudoname" />
+      <button id="pseudobutton">envoyer</button>
+    </div>
+
+    <div class="themes" id="themes">
+      <h2 id="username"></h2>
+      <h2>Choisissez une thématique</h2>
+      <div class="theme-options">
+        <button class="theme-btn" data-theme="javascript">JavaScript</button>
+        <button class="theme-btn" data-theme="html">HTML</button>
+        <button class="theme-btn" data-theme="css">CSS</button>
+      </div>
+    </div>
+    <div class="quiz">
+    </div>
+
+    <div class="controlButtons">
+      <!-- <button id="valider">valider</button>
+      <button id="suivant">suivant</button> -->
+    </div>
+
+    <div class="resultat"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- <script type="module"  src="js/elements.js"></script> -->
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
