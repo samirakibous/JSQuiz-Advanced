@@ -1,5 +1,5 @@
 import { arraysEqual, escapeHtml } from './utils.js';
-import { startTimer } from "./timer.js";
+
 const themesDiv = document.getElementById("themes");
 const quiz = document.querySelector(".quiz");
 const acceuil = document.querySelector(".bouton-acceuil")
@@ -10,12 +10,33 @@ const reponses = document.querySelector(".reponses");
 const question = document.getElementById("question");
 let questionsFilter = [];
 let index = 0;
+let tempsrestant;
+// let tempspassé=0;
+let tempsParQuestion = [];
+let tempsDebutQuestion = 0;
 
 let userAnswers = [];
 let reponseValidee = false;
+
 const timerDisplay = document.querySelector(".timer");
 
+let timer
+function startTimer() {
+    tempsrestant = 10;
+    const timerDisplay = document.getElementById("timer");
+    timer = setInterval(() => {
+        tempsrestant--;
+        timerDisplay.textContent = tempsrestant;
+        if (tempsrestant == 0) {
+            clearInterval(timer);
+            alert("Temps écoulé ! La réponse est considérée comme fausse.");
+            userAnswers[index] = null;
+            reponseValidee = true;
+            nextQuestion();
+        }
+    }, 1000);
 
+}
 
 
 export function stopQuiz() {
@@ -59,19 +80,20 @@ export function afficherQuestion(questionsFilter, index) {
     });
 
     startTimer();
+    tempsDebutQuestion = Date.now();
 }
 
 
 export function choisirQuestion(theme, questions) {
-const suivant = document.getElementById("suivant");
-const valider = document.getElementById("valider");
+    const suivant = document.getElementById("suivant");
+    const valider = document.getElementById("valider");
 
     if (!questions || questions.length === 0) {
         alert("Pas de quiz pour ce thème !");
         return;
     }
     questionsFilter = questions;
-    index = 0; 
+    index = 0;
     afficherQuestion(questionsFilter, index);
 
     themesDiv.style.display = "none";
@@ -115,13 +137,17 @@ export function nextQuestion() {
     }
     index++;
     reponseValidee = false;
+    let tempsFinQuestion = Date.now();
+    let tempsPasse = Math.floor((tempsFinQuestion - tempsDebutQuestion) / 1000);
+    tempsParQuestion.push(tempsPasse);
     if (index < questionsFilter.length) {
-        afficherQuestion(questionsFilter,index);
+        afficherQuestion(questionsFilter, index);
     } else {
         quiz.style.display = "none";
         controlButtons.style.display = "none";
         timerDisplay.style.display = "none";
         let score = 0;
+        // let totaltime=0;
         for (let i = 0; i < questionsFilter.length; i++) {
             if (arraysEqual(questionsFilter[i].correcte, userAnswers[i])) {
                 score++;
@@ -183,6 +209,19 @@ export function nextQuestion() {
         scoreDiv.style.fontWeight = "bold";
         scoreDiv.textContent = `Score: ${score} / ${questionsFilter.length}`;
         resultat.appendChild(scoreDiv);
+        const tempsTotalSec = tempsParQuestion.reduce((acc, t) => acc + t, 0);
+
+        const minutes = Math.floor(tempsTotalSec / 60);
+        const secondes = tempsTotalSec % 60;
+        const tempsTotalFormate = `${minutes}m ${secondes}s`;
+        const tempsDiv = document.createElement("div");
+        tempsDiv.style.textAlign = "center";
+        tempsDiv.style.marginTop = "10px";
+        tempsDiv.style.fontSize = "16px";
+        tempsDiv.style.fontWeight = "normal";
+        tempsDiv.textContent = `Temps total du quiz : ${tempsTotalFormate}`;
+
+        resultat.appendChild(tempsDiv);
 
         const retourBtn = document.createElement("button");
         retourBtn.textContent = "Retour à l'accueil";
