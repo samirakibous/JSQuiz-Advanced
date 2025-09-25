@@ -16,3 +16,4 @@ export function escapeHtml(str) {
     return div.innerHTML;
 
 }
+

@@ -1,5 +1,5 @@
 import { arraysEqual, escapeHtml } from './utils.js';
-
+import { startTimer } from "./timer.js";
 const themesDiv = document.getElementById("themes");
 const quiz = document.querySelector(".quiz");
 const acceuil = document.querySelector(".bouton-acceuil")
@@ -10,30 +10,12 @@ const reponses = document.querySelector(".reponses");
 const question = document.getElementById("question");
 let questionsFilter = [];
 let index = 0;
-let tempsrestant;
 
 let userAnswers = [];
 let reponseValidee = false;
-
 const timerDisplay = document.querySelector(".timer");
 
-let timer
-function startTimer() {
-    tempsrestant = 10;
-    const timerDisplay = document.getElementById("timer");
-    timer = setInterval(() => {
-        tempsrestant--;
-        timerDisplay.textContent = tempsrestant;
-        if (tempsrestant == 0) {
-            clearInterval(timer);
-            alert("Temps écoulé ! La réponse est considérée comme fausse.");
-            userAnswers[index] = null;
-            reponseValidee = true;
-            nextQuestion();
-        }
-    }, 1000);
 
-}
 
 
 export function stopQuiz() {
