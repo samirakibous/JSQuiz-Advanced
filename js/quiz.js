@@ -1,3 +1,5 @@
+import { arraysEqual, escapeHtml } from './utils.js';
+
 const themesDiv = document.getElementById("themes");
 const quiz = document.querySelector(".quiz");
 const acceuil = document.querySelector(".bouton-acceuil")
@@ -30,24 +32,6 @@ function startTimer() {
             nextQuestion();
         }
     }, 1000);
-
-}
-
-
-function arraysEqual(a, b) {
-    if (!a || !b) return false;
-    if (a.length !== b.length) return false;
-    a = [...a].sort();
-    b = [...b].sort();
-    for (let i = 0; i < a.length; i++) {
-        if (a[i] !== b[i]) return false;
-    }
-    return true;
-}
-function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
 
 }
 
