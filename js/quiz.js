@@ -136,7 +136,7 @@ export function nextQuestion() {
         return;
     }
     index++;
-    reponseValidee = false;
+    // reponseValidee = false;
     let tempsFinQuestion = Date.now();
     let tempsPasse = Math.floor((tempsFinQuestion - tempsDebutQuestion) / 1000);
     tempsParQuestion.push(tempsPasse);
@@ -251,6 +251,7 @@ export function nextQuestion() {
         // acceuil.style.display = "block";
     }
 }
+
 document.addEventListener("DOMContentLoaded", () => {
     const validerBtn = document.getElementById("valider");
     const suivantBtn = document.getElementById("suivant");

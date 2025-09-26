@@ -1,201 +1,200 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard - JSQuiz Advanced</title>
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Header avec navigation -->
     <header class="dashboard-header">
-        <div class="header-content">
-            <h1 class="dashboard-title">
-                <i class="fas fa-chart-bar"></i>
-                Dashboard JSQuiz
-            </h1>
-            <nav class="header-nav">
-                <a href="index.html" class="nav-btn">
-                    <i class="fas fa-home"></i>
-                    Accueil
-                </a>
-                <button class="nav-btn" id="exportBtn">
-                    <i class="fas fa-download"></i>
-                    Export
-                </button>
-            </nav>
-        </div>
+      <div class="header-content">
+        <h1 class="dashboard-title">
+          <i class="fas fa-chart-bar"></i>
+          Dashboard JSQuiz
+        </h1>
+        <nav class="header-nav">
+          <a href="index.html" class="nav-btn">
+            <i class="fas fa-home"></i>
+            Accueil
+          </a>
+          <button class="nav-btn" id="exportBtn">
+            <i class="fas fa-download"></i>
+            Export
+          </button>
+        </nav>
+      </div>
     </header>
 
     <!-- Contenu principal -->
     <main class="dashboard-main">
-        <!-- Section des statistiques générales -->
-        <section class="stats-overview">
-            <div class="stats-card">
-                <div class="stat-icon">
-                    <i class="fas fa-play-circle"></i>
-                </div>
-                <div class="stat-info">
-                    <h3>Parties jouées</h3>
-                    <span class="stat-value" id="totalGames">0</span>
-                </div>
-            </div>
-            
-            <div class="stats-card">
-                <div class="stat-icon">
-                    <i class="fas fa-trophy"></i>
-                </div>
-                <div class="stat-info">
-                    <h3>Meilleur score</h3>
-                    <span class="stat-value" id="bestScore">0%</span>
-                </div>
-            </div>
-            
-            <div class="stats-card">
-                <div class="stat-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <div class="stat-info">
-                    <h3>Score moyen</h3>
-                    <span class="stat-value" id="avgScore">0%</span>
-                </div>
-            </div>
-            
-            <div class="stats-card">
-                <div class="stat-icon">
-                    <i class="fas fa-clock"></i>
-                </div>
-                <div class="stat-info">
-                    <h3>Temps total</h3>
-                    <span class="stat-value" id="totalTime">0min</span>
-                </div>
-            </div>
-        </section>
+      <!-- Section des statistiques générales -->
+      <section class="stats-overview">
+        <div class="stats-card">
+          <div class="stat-icon">
+            <i class="fas fa-play-circle"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Parties jouées</h3>
+            <span class="stat-value" id="totalGames">0</span>
+          </div>
+        </div>
 
-        <!-- Section des graphiques -->
-        <section class="charts-section">
-            <div class="chart-container">
-                <div class="chart-header">
-                    <h2>Répartition par thématique</h2>
-                </div>
-                <canvas id="themeChart"></canvas>
+        <div class="stats-card">
+          <div class="stat-icon">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Meilleur score</h3>
+            <span class="stat-value" id="bestScore">0%</span>
+          </div>
+        </div>
+
+        <div class="stats-card">
+          <div class="stat-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Score moyen</h3>
+            <span class="stat-value" id="avgScore">0%</span>
+          </div>
+        </div>
+
+        <div class="stats-card">
+          <div class="stat-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Temps moyen</h3>
+            <span class="stat-value" id="totalTime">0min</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section des graphiques -->
+      <section class="charts-section">
+        <div class="chart-container">
+          <div class="chart-header">
+            <h2>Répartition par thématique</h2>
+          </div>
+          <canvas id="themeChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+          <div class="chart-header">
+            <h2>Progression des scores</h2>
+          </div>
+          <canvas id="progressChart"></canvas>
+        </div>
+      </section>
+
+      <!-- Section des statistiques détaillées -->
+      <section class="detailed-stats">
+        <div class="stats-container">
+          <div class="stats-header">
+            <h2>Statistiques par thématique</h2>
+            <div class="filter-controls">
+              <select id="themeFilter" class="filter-select">
+                <option value="all">Toutes les thématiques</option>
+              </select>
+              <button class="filter-btn" id="refreshStats">
+                <i class="fas fa-sync"></i>
+              </button>
             </div>
+          </div>
+          <div class="stats-table-container">
+            <table class="stats-table" id="statsTable">
+              <thead>
+                <tr>
+                  <th>Thématique</th>
+                  <th>Parties</th>
+                  <th>Score moyen</th>
+                  <th>Meilleur score</th>
+                </tr>
+              </thead>
+              <tbody id="statsTableBody">
+                <!-- Données dynamiques -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section du classement -->
+      <section class="leaderboard-section">
+        <div class="leaderboard-container">
+          <div class="leaderboard-header">
+            <h2>
+              <i class="fas fa-medal"></i>
+              Top 3 Joueurs
+            </h2>
+          </div>
+          <div class="podium" id="podium">
+            <!-- Podium généré dynamiquement -->
+          </div>
+          <div class="leaderboard-list" id="leaderboardList">
+            <!-- Liste complète des scores -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Section de l'historique -->
+      <section class="history-section">
+        <div class="history-container">
+          <div class="history-header">
+            <h2>Historique des parties</h2>
+            <!-- <div class="history-controls"> -->
+              <!-- <input type="date" id="dateFilter" class="date-filter" /> -->
+              <!-- <button class="clear-btn" id="clearHistory">
+                <i class="fas fa-trash"></i>
+                Vider l'historique
+              </button>
+            </div> -->
             
-            <div class="chart-container">
-                <div class="chart-header">
-                    <h2>Progression des scores</h2>
-                </div>
-                <canvas id="progressChart"></canvas>
-            </div>
-        </section>
-
-        <!-- Section des statistiques détaillées -->
-        <section class="detailed-stats">
-            <div class="stats-container">
-                <div class="stats-header">
-                    <h2>Statistiques par thématique</h2>
-                    <div class="filter-controls">
-                        <select id="themeFilter" class="filter-select">
-                            <option value="all">Toutes les thématiques</option>
-                        </select>
-                        <button class="filter-btn" id="refreshStats">
-                            <i class="fas fa-sync"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="stats-table-container">
-                    <table class="stats-table" id="statsTable">
-                        <thead>
-                            <tr>
-                                <th>Thématique</th>
-                                <th>Parties</th>
-                                <th>Score moyen</th>
-                                <th>Meilleur score</th>
-                                <th>Dernière partie</th>
-                            </tr>
-                        </thead>
-                        <tbody id="statsTableBody">
-                            <!-- Données dynamiques -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section du classement -->
-        <section class="leaderboard-section">
-            <div class="leaderboard-container">
-                <div class="leaderboard-header">
-                    <h2>
-                        <i class="fas fa-medal"></i>
-                        Top 3 Joueurs
-                    </h2>
-                </div>
-                <div class="podium" id="podium">
-                    <!-- Podium généré dynamiquement -->
-                </div>
-                <div class="leaderboard-list" id="leaderboardList">
-                    <!-- Liste complète des scores -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Section de l'historique -->
-        <section class="history-section">
-            <div class="history-container">
-                <div class="history-header">
-                    <h2>Historique des parties</h2>
-                    <div class="history-controls">
-                        <input type="date" id="dateFilter" class="date-filter">
-                        <button class="clear-btn" id="clearHistory">
-                            <i class="fas fa-trash"></i>
-                            Vider l'historique
-                        </button>
-                    </div>
-                </div>
-                <div class="history-list" id="historyList">
-                    <!-- Historique généré dynamiquement -->
-                </div>
-            </div>
-        </section>
+          </div>
+          <div class="history-list" id="historyList">
+            <!-- Historique généré dynamiquement -->
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Modal d'export -->
     <div class="modal-overlay" id="exportModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Exporter les données</h3>
-                <button class="modal-close" id="closeModal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="export-options">
-                    <button class="export-btn" id="exportJSON">
-                        <i class="fas fa-code"></i>
-                        Exporter en JSON
-                    </button>
-                    <button class="export-btn" id="exportCSV">
-                        <i class="fas fa-table"></i>
-                        Exporter en CSV
-                    </button>
-                </div>
-                <div class="export-info">
-                    <p>L'export inclura l'historique complet des parties, les statistiques et les scores.</p>
-                </div>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Exporter les données</h3>
+          <button class="modal-close" id="closeModal">
+            <i class="fas fa-times"></i>
+          </button>
         </div>
+        <div class="modal-body">
+          <div class="export-options">
+            <button class="export-btn" id="exportJSON">
+              <i class="fas fa-code"></i>
+              Exporter en JSON
+            </button>
+            <button class="export-btn" id="exportCSV">
+              <i class="fas fa-table"></i>
+              Exporter en CSV
+            </button>
+          </div>
+          <div class="export-info">
+            <p>
+              L'export inclura l'historique complet des parties, les
+              statistiques et les scores.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Loading indicator -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner">
-            <div class="spinner"></div>
-            <p>Chargement des statistiques...</p>
-        </div>
-    </div>
-
-</body>
+    <script type="module" src="js/dashboard.js"></script>
+  </body>
 </html>

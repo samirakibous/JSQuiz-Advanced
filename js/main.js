@@ -4,10 +4,6 @@ import { creerControlButtons } from './elements.js';
 import { pseudo } from './pseudo.js';
 import { envoyerPseudo } from './pseudo.js';
 import { choisirQuestion } from './quiz.js';
-import { afficherQuestion } from './quiz.js';
-import { verifierReponse } from './quiz.js';
-import { nextQuestion } from './quiz.js';
-
 creerQuestionContainer();
 
 creerControlButtons();
