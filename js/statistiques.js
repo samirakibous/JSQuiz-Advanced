@@ -54,8 +54,9 @@ export function calculerMeilleurScore(results) {
 
 }
 export function avgScorefunction(results) {
-    return results.reduce((avg, element) => avg + element.score, 0) / results.length;
+    return (results.reduce((avg, element) => avg + element.score, 0) / results.length).toFixed(1);
 }
+
 export function obtenirClassementTop3(results) {
     let classement = [];
     for (let i = 0; i < results.length; i++) {
@@ -77,4 +78,62 @@ export function obtenirClassementTop3(results) {
 
     return classement;
 
+}
+
+export function diagrammePArtieParThem(partiesParTheme) {
+    //    getContext("2d") cad dessin 2d
+    const ctx = document.getElementById("themeChart").getContext("2d");
+    new Chart(ctx, {
+        type: "pie",
+        data: {
+            labels: Object.keys(partiesParTheme),
+            datasets: [{
+                label: "Parties par thématique",
+                data: Object.values(partiesParTheme),
+                // backgroundColor: ["#D4AF37", "#CD853F", "#36454F"], 
+                // hoverBackgroundColor: ["#E6C757", "#D2B48C", "#4F5F6F"]
+                backgroundColor: ["#F39C12", "#E67E22", "#34495E"],
+                hoverBackgroundColor: ["#F5B041", "#EB984E", "#5D6D7E"]
+            }]
+        }
+    });
+}
+
+export function progressionScores(results) {
+    //   const progression = [];
+    // results.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    // for (let i = 0; i < results.length; i++) {
+    //     progression.push({
+    //         date: results[i].date,
+    //         score: results[i].score
+    //     });
+    // }
+    // return progression;
+
+    return results
+        .sort((a, b) => new Date(a.date) - new Date(b.date))
+        .map(p => ({ date: p.date, score: p.score }));
+}
+
+export function afficherGraphiqueProgression(progression) {
+    const ctx = document.getElementById("progressChart").getContext("2d");
+    const labels = [];
+    const scores = [];
+    for (let i = 0; i < progression.length; i++) {
+        labels.push(progression[i].date);
+        scores.push(progression[i].score);
+    }
+    new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Scores dans le temps",
+                data: scores,
+                borderColor: "yellow",
+                fill: false
+            }]
+        }
+    });
 }

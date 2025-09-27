@@ -1,5 +1,5 @@
 import { afficherHistorique } from "./historique.js";
-import {calculerMeilleurScore,avgScorefunction,obtenirClassementTop3} from "./statistiques.js";
+import { calculerMeilleurScore, avgScorefunction, obtenirClassementTop3, diagrammePArtieParThem, calculerPartiesParTheme, afficherGraphiqueProgression, progressionScores } from "./statistiques.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const results = JSON.parse(localStorage.getItem("results")) || [];
@@ -7,11 +7,15 @@ document.addEventListener("DOMContentLoaded", () => {
     afficherHistorique(results);
     const meilleurScore = calculerMeilleurScore(results);
     const classementTop3 = obtenirClassementTop3(results);
-    const avgScore= avgScorefunction(results);
+    const avgScore = avgScorefunction(results);
+    const partiesParTheme = calculerPartiesParTheme(results);
+    const progression = progressionScores(results);
 
+    diagrammePArtieParThem(partiesParTheme);
+    afficherGraphiqueProgression(progression);
     document.getElementById("totalGames").textContent = results.length;
     document.getElementById("bestScore").textContent = `${meilleurScore} pts`;
-    document.getElementById("avgScore").textContent =`${avgScore} pts`;
+    document.getElementById("avgScore").textContent = `${avgScore} pts`;
 
     afficherHistorique(results);
     afficherClassement(classementTop3);
@@ -20,9 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function afficherClassement(classement) {
     const podium = document.getElementById("podium");
-    podium.innerHTML = ""; 
+    podium.innerHTML = "";
 
-    const places = ["first", "second", "third"]; 
+    const places = ["first", "second", "third"];
     classement.slice(0, 3).forEach((joueur, i) => {
         const div = document.createElement("div");
         div.classList.add("podium-place", places[i]);
