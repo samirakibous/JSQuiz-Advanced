@@ -8,22 +8,24 @@ const questionCounter = document.querySelector(".question-counter");
 
 const reponses = document.querySelector(".reponses");
 const question = document.getElementById("question");
-let questionsFilter = [];
-let index = 0;
-let tempsrestant;
-// let tempspassé=0;
-let tempsParQuestion = [];
-let tempsDebutQuestion = 0;
+export let questionsFilter = [];
+export let index = 0;
+export let userAnswers = [];
+export let tempsrestant;
+export let tempsParQuestion = [];
+export let tempsDebutQuestion = 0;
 
-let userAnswers = [];
+
+// let userAnswers = [];
 let reponseValidee = false;
 
 const timerDisplay = document.querySelector(".timer");
 
 let timer
-function startTimer() {
+export function startTimer() {
     tempsrestant = 10;
     const timerDisplay = document.getElementById("timer");
+    clearInterval(timer);
     timer = setInterval(() => {
         tempsrestant--;
         timerDisplay.textContent = tempsrestant;
@@ -32,7 +34,14 @@ function startTimer() {
             alert("Temps écoulé ! La réponse est considérée comme fausse.");
             userAnswers[index] = null;
             reponseValidee = true;
-            nextQuestion();
+            // pour ne pas appler nextQuestion() plusieurs fois après la fin du quiz
+            if (index >= questionsFilter.length - 1) {
+                afficherResultats();
+            } else {
+                alert("Temps écoulé ! La réponse est considérée comme fausse.");
+                userAnswers[index] = null;
+                nextQuestion();
+            }
         }
     }, 1000);
 
@@ -87,7 +96,8 @@ export function afficherQuestion(questionsFilter, index) {
 export function choisirQuestion(theme, questions) {
     const suivant = document.getElementById("suivant");
     const valider = document.getElementById("valider");
-
+    if (questionsFilter.length > 0) return;
+    // localStorage.removeItem("etatQuiz");
     if (!questions || questions.length === 0) {
         alert("Pas de quiz pour ce thème !");
         return;
@@ -102,7 +112,26 @@ export function choisirQuestion(theme, questions) {
     suivant.style.display = "block";
     valider.style.display = "block";
 }
+function sauvegarderEtatQuiz() {
+    const etatQuiz = {
+        index: index,
+        questionsFilter: questionsFilter,
+        userAnswers: userAnswers,
+        tempsRestant: tempsrestant,
+        tempsParQuestion: tempsParQuestion,
+        tempsDebutQuestion: tempsDebutQuestion
+    };
+    localStorage.setItem("etatQuiz", JSON.stringify(etatQuiz));
+}
 
+export function setQuizState(etatQuiz) {
+    questionsFilter = etatQuiz.questionsFilter;
+    index = etatQuiz.index;
+    userAnswers = etatQuiz.userAnswers;
+    tempsrestant = etatQuiz.tempsRestant;
+    tempsParQuestion = etatQuiz.tempsParQuestion;
+    tempsDebutQuestion = etatQuiz.tempsDebutQuestion;
+}
 export function verifierReponse() {
     // let valeur;
     const bonnesReponses = questionsFilter[index].correcte;
@@ -123,14 +152,16 @@ export function verifierReponse() {
             labelContainer.style.border = "2px solid red";
         }
     }
-     const tempsFinQuestion = Date.now();
-    const tempsPasse = Math.floor((tempsFinQuestion - tempsDebutQuestion) / 1000); 
+    const tempsFinQuestion = Date.now();
+    const tempsPasse = Math.floor((tempsFinQuestion - tempsDebutQuestion) / 1000);
     tempsParQuestion.push(tempsPasse);
     timerDisplay.style.display = "block";
     userAnswers[index] = userChoice;
     console.log(userAnswers);
     reponseValidee = true;
     clearInterval(timer);
+    sauvegarderEtatQuiz();
+
 }
 
 export function nextQuestion() {
@@ -142,6 +173,8 @@ export function nextQuestion() {
     reponseValidee = false;
     if (index < questionsFilter.length) {
         afficherQuestion(questionsFilter, index);
+        sauvegarderEtatQuiz();
+
     } else {
         afficherResultats();
     }
@@ -222,6 +255,7 @@ function afficherResultats() {
 
     afficherTempsTotal(resultat, result.tempsTotal);
     ajouterBoutons(resultat, result);
+    localStorage.removeItem("etatQuiz");
 }
 function ajouterBoutons(container, result) {
     const retourBtn = document.createElement("button");
@@ -248,7 +282,7 @@ function ajouterBoutons(container, result) {
     container.appendChild(exportpdf);
 }
 
-function afficherTempsTotal(container,tempsTotalSec) {
+function afficherTempsTotal(container, tempsTotalSec) {
     const minutes = Math.floor(tempsTotalSec / 60);
     const secondes = tempsTotalSec % 60;
     const tempsTotalFormate = `${minutes}m ${secondes}s`;

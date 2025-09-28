@@ -36,7 +36,7 @@
         <button class="theme-btn" data-theme="css">CSS</button>
       </div>
     </div>
-    
+
     <div class="quiz"></div>
 
     <div class="controlButtons">
@@ -47,6 +47,16 @@
     <div class="resultat"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <!-- <script type="module"  src="js/elements.js"></script> -->
+     <div id="modalRepriseQuiz" class="modal" style="display:none;">
+    <div class="modal-content">
+        <p>Voulez-vous reprendre votre quiz interrompu ?</p>
+        <div class="modal-buttons">
+            <button id="ouiReprendre">Oui</button>
+            <button id="nonReprendre">Non</button>
+        </div>
+    </div>
+</div>
+
     <script type="module" src="js/main.js"></script>
   </body>
 </html>

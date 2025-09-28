@@ -1,6 +1,7 @@
 import { afficherHistorique } from "./historique.js";
-import { calculerMeilleurScore, avgScorefunction, obtenirClassementTop3, diagrammePArtieParThem, calculerPartiesParTheme, afficherGraphiqueProgression, progressionScores, calculerMeilleurScoreParTheme,calculerMoyenneTemps } from "./statistiques.js";
+import { calculerMeilleurScore, avgScorefunction, obtenirClassementTop3, diagrammePArtieParThem, calculerPartiesParTheme, afficherGraphiqueProgression, progressionScores, calculerMeilleurScoreParTheme, calculerMoyenneTemps } from "./statistiques.js";
 import { exporterEnJSON, exporterEnCSV } from "./export.js";
+import { questionsFilter, index, userAnswers, tempsrestant, tempsParQuestion, tempsDebutQuestion } from "./quiz.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const results = JSON.parse(localStorage.getItem("results")) || [];
@@ -116,4 +117,6 @@ function afficherMoyenneTemps(results) {
         moyenneTempsElement.textContent = `${minutes}m ${secondes}s`;
     }
 }
+
+
 
