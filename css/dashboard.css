@@ -213,36 +213,6 @@ body {
     background-clip: text;
 }
 
-.filter-controls {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
-.filter-select {
-    background: rgba(0, 0, 0, 0.7);
-    border: 2px solid rgba(255, 215, 0, 0.3);
-    border-radius: 10px;
-    padding: 0.5rem 1rem;
-    color: white;
-    font-size: 0.9rem;
-}
-
-.filter-btn {
-    background: linear-gradient(45deg, #ffd700, #ffed4e);
-    color: #333;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.filter-btn:hover {
-    transform: rotate(90deg);
-}
-
 .stats-table-container {
     overflow-x: auto;
 }

@@ -1,5 +1,5 @@
 import { afficherHistorique } from "./historique.js";
-import { calculerMeilleurScore, avgScorefunction, obtenirClassementTop3, diagrammePArtieParThem, calculerPartiesParTheme, afficherGraphiqueProgression, progressionScores } from "./statistiques.js";
+import { calculerMeilleurScore, avgScorefunction, obtenirClassementTop3, diagrammePArtieParThem, calculerPartiesParTheme, afficherGraphiqueProgression, progressionScores, calculerMeilleurScoreParTheme } from "./statistiques.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const results = JSON.parse(localStorage.getItem("results")) || [];
@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const avgScore = avgScorefunction(results);
     const partiesParTheme = calculerPartiesParTheme(results);
     const progression = progressionScores(results);
+    const meilleursParTheme = calculerMeilleurScoreParTheme(results);
 
     diagrammePArtieParThem(partiesParTheme);
     afficherGraphiqueProgression(progression);
@@ -19,8 +20,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     afficherHistorique(results);
     afficherClassement(classementTop3);
+    afficherStatsParTheme(results);
 });
 
+const modalOverlay = document.querySelector('.modal-overlay');
+const exportBtn = document.getElementById('exportBtn');
+exportBtn.addEventListener('click', () => {
+    modalOverlay.style.display = "block";
+})
+const closeModal = document.getElementById("closeModal");
+closeModal.addEventListener('click', () => {
+    modalOverlay.style.display = "none";
+})
 
 function afficherClassement(classement) {
     const podium = document.getElementById("podium");
@@ -47,4 +58,37 @@ function afficherClassement(classement) {
 
         podium.appendChild(div);
     });
+}
+
+export function afficherStatsParTheme(results) {
+    const partiesParTheme = calculerPartiesParTheme(results);
+    const meilleursParTheme = calculerMeilleurScoreParTheme(results);
+
+    const tbody = document.getElementById("statsTableBody");
+    tbody.innerHTML = "";
+
+    for (let theme in partiesParTheme) {
+        const tr = document.createElement("tr");
+
+        const tdTheme = document.createElement("td");
+        tdTheme.textContent = theme;
+
+        const tdParties = document.createElement("td");
+        tdParties.textContent = partiesParTheme[theme];
+
+        const tdScoreMoyen = document.createElement("td");
+        const scoresTheme = results.filter(r => r.theme === theme).map(r => r.score);
+        const moyenne = (scoresTheme.reduce((a, b) => a + b, 0) / scoresTheme.length).toFixed(1);
+        tdScoreMoyen.textContent = `${moyenne} pts`;
+
+        const tdMeilleurScore = document.createElement("td");
+        tdMeilleurScore.textContent = `${meilleursParTheme[theme]} pts`;
+
+        tr.appendChild(tdTheme);
+        tr.appendChild(tdParties);
+        tr.appendChild(tdScoreMoyen);
+        tr.appendChild(tdMeilleurScore);
+
+        tbody.appendChild(tr);
+    }
 }

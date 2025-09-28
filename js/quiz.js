@@ -157,7 +157,8 @@ function calculerResultats() {
         theme: questionsFilter[0]?.theme || "unknown",
         score: score,
         Responses: userAnswers,
-        date: new Date().toLocaleString()
+        date: new Date().toLocaleString(),
+        // tempsTotal: tempsTotalSec
     };
 
     let results = JSON.parse(localStorage.getItem("results")) || [];
@@ -257,6 +258,7 @@ function afficherTempsTotal(container) {
     tempsDiv.textContent = `Temps total du quiz : ${tempsTotalFormate}`;
 
     container.appendChild(tempsDiv);
+    // return tempsTotalSec;
 }
 
 document.addEventListener("DOMContentLoaded", () => {

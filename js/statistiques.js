@@ -111,7 +111,7 @@ export function progressionScores(results) {
     // }
     // return progression;
 
-    return results
+    return results  
         .sort((a, b) => new Date(a.date) - new Date(b.date))
         .map(p => ({ date: p.date, score: p.score }));
 }
@@ -136,4 +136,15 @@ export function afficherGraphiqueProgression(progression) {
             }]
         }
     });
+}
+export function calculerMeilleurScoreParTheme(results) {
+    const meilleurParTheme = {};
+
+    results.forEach(result => {
+        if (!meilleurParTheme[result.theme] || result.score > meilleurParTheme[result.theme]) {
+            meilleurParTheme[result.theme] = result.score;
+        }
+    });
+
+    return meilleurParTheme;
 }
