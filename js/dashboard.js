@@ -1,5 +1,6 @@
 import { afficherHistorique } from "./historique.js";
 import { calculerMeilleurScore, avgScorefunction, obtenirClassementTop3, diagrammePArtieParThem, calculerPartiesParTheme, afficherGraphiqueProgression, progressionScores, calculerMeilleurScoreParTheme,calculerMoyenneTemps } from "./statistiques.js";
+import { exporterEnJSON, exporterEnCSV } from "./export.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const results = JSON.parse(localStorage.getItem("results")) || [];
@@ -34,6 +35,16 @@ const closeModal = document.getElementById("closeModal");
 closeModal.addEventListener('click', () => {
     modalOverlay.style.display = "none";
 })
+
+document.getElementById("exportJSON").addEventListener("click", () => {
+    const results = JSON.parse(localStorage.getItem("results")) || [];
+    exporterEnJSON(results);
+});
+
+document.getElementById("exportCSV").addEventListener("click", () => {
+    const results = JSON.parse(localStorage.getItem("results")) || [];
+    exporterEnCSV(results);
+});
 
 function afficherClassement(classement) {
     const podium = document.getElementById("podium");
