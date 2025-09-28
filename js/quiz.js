@@ -123,6 +123,9 @@ export function verifierReponse() {
             labelContainer.style.border = "2px solid red";
         }
     }
+     const tempsFinQuestion = Date.now();
+    const tempsPasse = Math.floor((tempsFinQuestion - tempsDebutQuestion) / 1000); 
+    tempsParQuestion.push(tempsPasse);
     timerDisplay.style.display = "block";
     userAnswers[index] = userChoice;
     console.log(userAnswers);

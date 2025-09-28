@@ -148,3 +148,12 @@ export function calculerMeilleurScoreParTheme(results) {
 
     return meilleurParTheme;
 }
+
+export function calculerMoyenneTemps() {
+    const results = JSON.parse(localStorage.getItem("results")) || [];
+
+    if (results.length === 0) return 0;
+
+    const totalTemps = results.reduce((acc, result) => acc + result.tempsTotal, 0);
+    return totalTemps / results.length;
+}

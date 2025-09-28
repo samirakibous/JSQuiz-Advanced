@@ -1,5 +1,5 @@
 import { afficherHistorique } from "./historique.js";
-import { calculerMeilleurScore, avgScorefunction, obtenirClassementTop3, diagrammePArtieParThem, calculerPartiesParTheme, afficherGraphiqueProgression, progressionScores, calculerMeilleurScoreParTheme } from "./statistiques.js";
+import { calculerMeilleurScore, avgScorefunction, obtenirClassementTop3, diagrammePArtieParThem, calculerPartiesParTheme, afficherGraphiqueProgression, progressionScores, calculerMeilleurScoreParTheme,calculerMoyenneTemps } from "./statistiques.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const results = JSON.parse(localStorage.getItem("results")) || [];
@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const partiesParTheme = calculerPartiesParTheme(results);
     const progression = progressionScores(results);
     const meilleursParTheme = calculerMeilleurScoreParTheme(results);
+    const moyenneTemps = calculerMoyenneTemps(results);
 
     diagrammePArtieParThem(partiesParTheme);
     afficherGraphiqueProgression(progression);
@@ -21,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     afficherHistorique(results);
     afficherClassement(classementTop3);
     afficherStatsParTheme(results);
+    afficherMoyenneTemps(results);
 });
 
 const modalOverlay = document.querySelector('.modal-overlay');
@@ -92,3 +94,15 @@ export function afficherStatsParTheme(results) {
         tbody.appendChild(tr);
     }
 }
+
+function afficherMoyenneTemps(results) {
+    const moyenneTemps = calculerMoyenneTemps(results);
+    const moyenneTempsElement = document.getElementById("totalTime");
+
+    if (moyenneTempsElement) {
+        const minutes = Math.floor(moyenneTemps / 60);
+        const secondes = Math.floor(moyenneTemps % 60);
+        moyenneTempsElement.textContent = `${minutes}m ${secondes}s`;
+    }
+}
+
