@@ -20,7 +20,7 @@
     <div class="quitter">
       <button id="quitter">quitter</button>
     </div>
-    <div class="timer">Temps restant : <span id="timer">15</span>s</div>
+    <div class="timer">Temps restant : <span id="timer"></span>s</div>
     <div class="pseudo">
       <h1>Bienvenue ! Merci d'entrer votre pseudo pour commancer :</h1>
       <input type="text" name="pseudoname" id="pseudoname" />
@@ -35,8 +35,15 @@
         <button class="theme-btn" data-theme="html">HTML</button>
         <button class="theme-btn" data-theme="css">CSS</button>
       </div>
+      <!-- <button id="revisionBtn" class="revision-btn" style="display:none;">Mode Révision</button> -->
     </div>
-
+    <div id="modalTempsEcoule" class="modal1" style="display: none">
+      <div class="modal-content1">
+        <!-- <span id="closeModalTempsEcoule" class="close">&times;</span> -->
+        <p>Temps écoulé ! La réponse est considérée comme fausse.</p>
+        <button id="modalNextQuestion">Suivant</button>
+      </div>
+    </div>
     <div class="quiz"></div>
 
     <div class="controlButtons">
@@ -47,15 +54,15 @@
     <div class="resultat"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <!-- <script type="module"  src="js/elements.js"></script> -->
-     <div id="modalRepriseQuiz" class="modal" style="display:none;">
-    <div class="modal-content">
-        <p>Voulez-vous reprendre votre quiz interrompu ?</p>
+    <div id="modalRepriseQuiz" class="modal" style="display: none">
+      <div class="modal-content">
+        <p>Voulez-vous reprendre votre quiz ?</p>
         <div class="modal-buttons">
-            <button id="ouiReprendre">Oui</button>
-            <button id="nonReprendre">Non</button>
+          <button id="ouiReprendre">Oui</button>
+          <button id="nonReprendre">Non</button>
         </div>
+      </div>
     </div>
-</div>
 
     <script type="module" src="js/main.js"></script>
   </body>

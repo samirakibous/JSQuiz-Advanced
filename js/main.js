@@ -4,13 +4,14 @@ import { creerControlButtons } from './elements.js';
 import { pseudo } from './pseudo.js';
 import { envoyerPseudo } from './pseudo.js';
 import { choisirQuestion, afficherQuestion, startTimer } from './quiz.js';
-import { questionsFilter, index, userAnswers, tempsrestant, tempsParQuestion, tempsDebutQuestion, setQuizState } from "./quiz.js";
+import { questionsFilter, index, userAnswers, tempsrestant, tempsParQuestion, tempsDebutQuestion, setQuizState ,stopQuiz} from "./quiz.js";
+import { setIndex,timerDisplay } from "./quiz.js";
+import { quitterDiv } from './pseudo.js';
+
 
 creerQuestionContainer();
 
 creerControlButtons();
-
-
 const themesDiv = document.getElementById("themes");
 const quiz = document.querySelector(".quiz");
 const acceuil = document.querySelector(".bouton-acceuil")
@@ -56,9 +57,50 @@ themebutons.forEach(btn => {
 bouton.addEventListener("click", () => {
     acceuil.style.display = "none";
 })
-pseudobutton.addEventListener("click", () => {
+pseudobutton.addEventListener("click", async () => {
+    const pseudoValue = pseudoname.value.trim();
     envoyerPseudo();
-})
+
+    if (!pseudoValue) return alert("Veuillez entrer un pseudo");
+
+    username.innerHTML = `Bonjour ${pseudoValue}`;
+    themesDiv.style.display = "block";
+
+    const dernierePartie = getDernierePartie(pseudoValue);
+
+    // On supprime un ancien bouton de révision s’il existe
+    const ancienBtn = document.getElementById("revisionBtn");
+    if (ancienBtn) ancienBtn.remove();
+
+    if (dernierePartie) {
+        const questionsEchouees = await getQuestionsEchouees(dernierePartie);
+
+        if (questionsEchouees.length > 0) {
+            let revisionBtn = document.createElement("button");
+            revisionBtn.id = "revisionBtn";
+            revisionBtn.classList.add("revision-btn");
+            revisionBtn.textContent = "Mode Révision";
+            revisionBtn.style.display = "block"; // afficher directement
+            themesDiv.appendChild(revisionBtn);
+
+            revisionBtn.addEventListener("click", () => {
+                questionsFilter.splice(0, questionsFilter.length, ...questionsEchouees);
+
+                acceuil.style.display = "none";
+                themesDiv.style.display = "none";
+                quiz.style.display = "block";
+                controlButtons.style.display = "flex";
+                document.getElementById("suivant").style.display = "inline-block";
+
+setIndex(0);                afficherQuestion(questionsFilter, index);
+                startTimer();
+            });
+        }
+    }
+});
+
+
+
 
 bouton.addEventListener("click", () => {
     pseudo();
@@ -112,4 +154,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+quitter.addEventListener("click", () => {
+    // let resultat = document.querySelector(".resultat");
+    const pseudo = document.querySelector(".pseudo");
+    // acceuil.style.display = "block";
+    quiz.style.display = "none";
+    themesDiv.style.display = "none";
+    controlButtons.style.display = "none";
+    quitterDiv.style.display = "none";
+    pseudo.style.display = "none";
+    timerDisplay.style.display = "none";
+    // resultat.style.display = "none";
+    acceuil.style.display = "flex";
+    acceuil.style.flexDirection = "column";
+    acceuil.style.justifyContent = "center";
+    acceuil.style.alignItems = "center";
+    stopQuiz();
+    // questionsFilter = [];
+    questionsFilter.splice(0, questionsFilter.length);
+    // index = 0;
+    setIndex(0); 
+    localStorage.removeItem("etatQuiz");
+})
 

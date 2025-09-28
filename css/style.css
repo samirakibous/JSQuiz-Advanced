@@ -115,7 +115,7 @@ body {
     margin-top: 2rem;
 }
 
-.theme-btn {
+.theme-btn ,.modal-content button{
     padding: 1.2rem 2.5rem;
     font-size: 1.2rem;
     font-weight: 600;
@@ -506,29 +506,70 @@ body {
     color: aliceblue;
 }
 
-.modal {
+.modal1,.modal {
+    display: none;
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.3s ease-out;
 }
 
-.modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
+
+.modal-content1,.modal-content {
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    margin: auto;
+    padding: 0;
+    border: 2px solid rgba(255, 215, 0, 0.5);
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.5);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+
+.modal-content1 p ,.modal-content p{
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 600;
     text-align: center;
+    padding: 3rem 2rem 1.5rem;
+    margin: 0;
+    line-height: 1.6;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-.modal-buttons button {
-    margin: 5px;
-    padding: 10px 20px;
-    font-size: 1rem;
+.modal-content1 button ,.modal-content button,.revision-btn{
+    display: block;
+    margin: 0 auto 2rem;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    color: #333;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
 }
+
 
 @media (max-width: 768px) {
     #bienvenue {

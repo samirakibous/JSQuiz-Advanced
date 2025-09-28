@@ -1,5 +1,6 @@
 import { arraysEqual, escapeHtml } from './utils.js';
-
+import { quitterDiv } from './pseudo.js';
+import{genererPdf } from './rapportPdf.js';
 const themesDiv = document.getElementById("themes");
 const quiz = document.querySelector(".quiz");
 const acceuil = document.querySelector(".bouton-acceuil")
@@ -14,50 +15,82 @@ export let userAnswers = [];
 export let tempsrestant;
 export let tempsParQuestion = [];
 export let tempsDebutQuestion = 0;
-
+export const timerDisplay = document.querySelector(".timer");
+export const timerElement = document.getElementById("timer");
 
 // let userAnswers = [];
 let reponseValidee = false;
 
-const timerDisplay = document.querySelector(".timer");
+
 
 let timer
 export function startTimer() {
     tempsrestant = 10;
-    const timerDisplay = document.getElementById("timer");
+    timerDisplay.style.display = "block";
     clearInterval(timer);
     timer = setInterval(() => {
         tempsrestant--;
-        timerDisplay.textContent = tempsrestant;
+        timerElement.textContent = tempsrestant; 
+        // timerDisplay.textContent = tempsrestant;
         if (tempsrestant == 0) {
             clearInterval(timer);
-            alert("Temps écoulé ! La réponse est considérée comme fausse.");
+            // alert("Temps écoulé ! La réponse est considérée comme fausse.");
+            afficherModalTempsEcoule();
             userAnswers[index] = null;
             reponseValidee = true;
             // pour ne pas appler nextQuestion() plusieurs fois après la fin du quiz
             if (index >= questionsFilter.length - 1) {
                 afficherResultats();
             } else {
-                alert("Temps écoulé ! La réponse est considérée comme fausse.");
+                // alert("Temps écoulé ! La réponse est considérée comme fausse.");
                 userAnswers[index] = null;
-                nextQuestion();
+                // nextQuestion();
             }
         }
     }, 1000);
 
+}
+function afficherModalTempsEcoule() {
+    const modal = document.getElementById("modalTempsEcoule");
+    const closeBtn = document.getElementById("closeModalTempsEcoule");
+    const nextBtn = document.getElementById("modalNextQuestion");
+
+    modal.style.display = "flex";
+
+    nextBtn.onclick = () => {
+        modal.style.display = "none";
+        userAnswers[index] = null;
+        reponseValidee = true;
+
+        if (index >= questionsFilter.length - 1) {
+            afficherResultats();
+        } else {
+            nextQuestion();
+        }
+    };
+
+    window.onclick = (event) => {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
 }
 
 
 export function stopQuiz() {
     let resultat = document.querySelector(".resultat");
     clearInterval(timer);
-    timerDisplay.style.display = "none";
-    questionCounter.style.display = "none";
-    resultat.style.display = "none";
+
+    const questionCounter = document.querySelector(".question-counter");
+    if (timerDisplay) timerDisplay.style.display = "none";
+    if (questionCounter) questionCounter.style.display = "none";
+    if (resultat) resultat.style.display = "none";
+
     questionsFilter = [];
     index = 0;
     reponseValidee = false;
 }
+
 export function afficherQuestion(questionsFilter, index) {
     const questionCounter = document.querySelector(".question-counter");
     const question = document.getElementById("question");
@@ -96,7 +129,7 @@ export function afficherQuestion(questionsFilter, index) {
 export function choisirQuestion(theme, questions) {
     const suivant = document.getElementById("suivant");
     const valider = document.getElementById("valider");
-    if (questionsFilter.length > 0) return;
+    // if (questionsFilter.length > 0) return;
     // localStorage.removeItem("etatQuiz");
     if (!questions || questions.length === 0) {
         alert("Pas de quiz pour ce thème !");
@@ -105,7 +138,7 @@ export function choisirQuestion(theme, questions) {
     questionsFilter = questions;
     index = 0;
     afficherQuestion(questionsFilter, index);
-
+timerDisplay.style.display = "block";
     themesDiv.style.display = "none";
     quiz.style.display = "block";
     controlButtons.style.display = "flex";
@@ -163,7 +196,9 @@ export function verifierReponse() {
     sauvegarderEtatQuiz();
 
 }
-
+export function setIndex(val) {
+    index = val;
+}
 export function nextQuestion() {
     if (!reponseValidee) {
         alert("Veuillez valider votre réponse avant de passer à la question suivante !");
@@ -263,7 +298,8 @@ function ajouterBoutons(container, result) {
     retourBtn.style.display = "block";
     retourBtn.style.margin = "20px auto";
     retourBtn.addEventListener("click", () => {
-        questionCounter.style.display = "none";
+        // questionCounter.style.display = "none";
+        if (questionCounter) questionCounter.style.display = "none";
         acceuil.style.display = "flex";
         acceuil.style.flexDirection = "column";
         acceuil.style.justifyContent = "center";

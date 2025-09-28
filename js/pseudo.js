@@ -4,7 +4,8 @@ const acceuil = document.querySelector(".bouton-acceuil")
 const bouton = document.getElementById("commencer");
 const valider = document.getElementById("valider");
 const pseudoname = document.getElementById("pseudoname");
-const quitterDiv = document.querySelector(".quitter");
+// const quitterDiv = document.querySelector(".quitter");
+export const quitterDiv = document.querySelector(".quitter");
 
 export function pseudo() {
     const suivant = document.getElementById("suivant");

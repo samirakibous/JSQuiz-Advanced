@@ -1,3 +1,4 @@
+import {questionsFilter} from './quiz.js';
 export function genererPdf(result) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
