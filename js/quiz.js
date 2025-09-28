@@ -152,13 +152,14 @@ function calculerResultats() {
         }
     }
 
+    const tempsTotalSec = tempsParQuestion.reduce((acc, t) => acc + t, 0);
     const result = {
         pseudo: localStorage.getItem("pseudoname"),
         theme: questionsFilter[0]?.theme || "unknown",
         score: score,
         Responses: userAnswers,
         date: new Date().toLocaleString(),
-        // tempsTotal: tempsTotalSec
+        tempsTotal: tempsTotalSec
     };
 
     let results = JSON.parse(localStorage.getItem("results")) || [];
@@ -216,7 +217,7 @@ function afficherResultats() {
     scoreDiv.textContent = `Score: ${result.score} / ${questionsFilter.length}`;
     resultat.appendChild(scoreDiv);
 
-    afficherTempsTotal(resultat);
+    afficherTempsTotal(resultat, result.tempsTotal);
     ajouterBoutons(resultat, result);
 }
 function ajouterBoutons(container, result) {
@@ -244,8 +245,7 @@ function ajouterBoutons(container, result) {
     container.appendChild(exportpdf);
 }
 
-function afficherTempsTotal(container) {
-    const tempsTotalSec = tempsParQuestion.reduce((acc, t) => acc + t, 0);
+function afficherTempsTotal(container,tempsTotalSec) {
     const minutes = Math.floor(tempsTotalSec / 60);
     const secondes = tempsTotalSec % 60;
     const tempsTotalFormate = `${minutes}m ${secondes}s`;
