@@ -1,14 +1,14 @@
 import { arraysEqual, escapeHtml } from './utils.js';
 import { quitterDiv } from './pseudo.js';
-import{genererPdf } from './rapportPdf.js';
+import { genererPdf } from './rapportPdf.js';
 const themesDiv = document.getElementById("themes");
 const quiz = document.querySelector(".quiz");
 const acceuil = document.querySelector(".bouton-acceuil")
 const controlButtons = document.querySelector(".controlButtons");
 const questionCounter = document.querySelector(".question-counter");
 
-const reponses = document.querySelector(".reponses");
-const question = document.getElementById("question");
+// const reponses = document.querySelector(".reponses");
+// const question = document.getElementById("question");
 export let questionsFilter = [];
 export let index = 0;
 export let userAnswers = [];
@@ -17,8 +17,6 @@ export let tempsParQuestion = [];
 export let tempsDebutQuestion = 0;
 export const timerDisplay = document.querySelector(".timer");
 export const timerElement = document.getElementById("timer");
-
-// let userAnswers = [];
 let reponseValidee = false;
 
 
@@ -30,7 +28,7 @@ export function startTimer() {
     clearInterval(timer);
     timer = setInterval(() => {
         tempsrestant--;
-        timerElement.textContent = tempsrestant; 
+        timerElement.textContent = tempsrestant;
         // timerDisplay.textContent = tempsrestant;
         if (tempsrestant == 0) {
             clearInterval(timer);
@@ -138,7 +136,7 @@ export function choisirQuestion(theme, questions) {
     questionsFilter = questions;
     index = 0;
     afficherQuestion(questionsFilter, index);
-timerDisplay.style.display = "block";
+    timerDisplay.style.display = "block";
     themesDiv.style.display = "none";
     quiz.style.display = "block";
     controlButtons.style.display = "flex";
@@ -201,7 +199,20 @@ export function setIndex(val) {
 }
 export function nextQuestion() {
     if (!reponseValidee) {
-        alert("Veuillez valider votre réponse avant de passer à la question suivante !");
+        const modal = document.getElementById("modalValider");
+        const fermerBtn = document.getElementById("fermerModalValider");
+
+        modal.style.display = "flex";
+
+        fermerBtn.onclick = () => {
+            modal.style.display = "none";
+        };
+
+        window.onclick = (event) => {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
         return;
     }
     index++;
@@ -292,7 +303,7 @@ function afficherResultats() {
     ajouterBoutons(resultat, result);
     localStorage.removeItem("etatQuiz");
 }
-
+//fonction pour création des boutons dans le resultat final
 function ajouterBoutons(container, result) {
     const retourBtn = document.createElement("button");
     retourBtn.textContent = "Retour à l'accueil";

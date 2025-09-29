@@ -514,7 +514,7 @@ a {
     color: aliceblue;
 }
 
-.modal1,.modal {
+.modal1,.modal,.modal2 {
     display: none;
     position: fixed;
     z-index: 2000;
@@ -528,7 +528,7 @@ a {
 }
 
 
-.modal-content1,.modal-content {
+.modal-content1,.modal-content,.modal-content2 {
     background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(20px);
     margin: auto;
@@ -544,7 +544,7 @@ a {
 }
 
 
-.modal-content1 p ,.modal-content p{
+.modal-content1 p ,.modal-content p,.modal-content2 p{
     color: white;
     font-size: 1.3rem;
     font-weight: 600;
@@ -559,7 +559,7 @@ a {
     background-clip: text;
 }
 
-.modal-content1 button ,.modal-content button,.revision-btn{
+.modal-content1 button,.modal-content2 button  ,.modal-content button,.revision-btn{
     display: block;
     margin: 0 auto 2rem;
     padding: 1rem 2.5rem;
