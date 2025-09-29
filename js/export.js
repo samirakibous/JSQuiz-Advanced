@@ -1,16 +1,20 @@
 export function exporterEnJSON(results, filename = "historique.json") {
+    // transformer results en json
+    // pas de filtre et 2 espaces
     const dataStr = JSON.stringify(results, null, 2);
+
     const dataUri = "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
 
     const a = document.createElement("a");
     a.setAttribute("href", dataUri);
     a.setAttribute("download", filename);
+    //simule le click
     a.click();
 }
 
 
 export function exporterEnCSV(results, filename = "historique.csv") {
-    //bach wantagcha ijen csv vide
+    //verification pour eviter ijen csv vide
     if (!results || results.length === 0) return;
 
     const csvRows = [];
@@ -35,7 +39,7 @@ export function exporterEnCSV(results, filename = "historique.csv") {
     });
     const csvString = csvRows.join("\n");
 
-    //nteg ijen lien pour télécharger le fichier
+    //lien pour télécharger le fichier
     const link = document.createElement("a");
     link.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csvString);
     link.download = filename;

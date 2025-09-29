@@ -30,6 +30,14 @@ body {
     color: white;
     text-align: center;
 }
+.divparent{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+a {
+  text-decoration: none;
+}
 
 #bienvenue {
     font-size: 3.5rem;
@@ -43,7 +51,7 @@ body {
     line-height: 1.2;
 }
 
-#commencer {
+#commencer,.btn {
     background: linear-gradient(45deg, #ffd700, #ffed4e);
     color: #333;
     border: none;

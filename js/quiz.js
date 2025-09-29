@@ -292,6 +292,7 @@ function afficherResultats() {
     ajouterBoutons(resultat, result);
     localStorage.removeItem("etatQuiz");
 }
+
 function ajouterBoutons(container, result) {
     const retourBtn = document.createElement("button");
     retourBtn.textContent = "Retour à l'accueil";
