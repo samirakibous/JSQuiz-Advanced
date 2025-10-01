@@ -1,11 +1,9 @@
 import { arraysEqual, escapeHtml } from './utils.js';
-import { quitterDiv } from './pseudo.js';
-import { genererPdf } from './rapportPdf.js';
+import {ajouterBoutons} from './elements.js';
 const themesDiv = document.getElementById("themes");
 const quiz = document.querySelector(".quiz");
-const acceuil = document.querySelector(".bouton-acceuil")
 const controlButtons = document.querySelector(".controlButtons");
-const questionCounter = document.querySelector(".question-counter");
+export const questionCounter = document.querySelector(".question-counter");
 
 // const reponses = document.querySelector(".reponses");
 // const question = document.getElementById("question");
@@ -67,11 +65,11 @@ function afficherModalTempsEcoule() {
         }
     };
 
-    window.onclick = (event) => {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    };
+    // window.onclick = (event) => {
+    //     if (event.target == modal) {
+    //         modal.style.display = "none";
+    //     }
+    // };
 }
 
 
@@ -302,32 +300,6 @@ function afficherResultats() {
     afficherTempsTotal(resultat, result.tempsTotal);
     ajouterBoutons(resultat, result);
     localStorage.removeItem("etatQuiz");
-}
-//fonction pour création des boutons dans le resultat final
-function ajouterBoutons(container, result) {
-    const retourBtn = document.createElement("button");
-    retourBtn.textContent = "Retour à l'accueil";
-    retourBtn.style.display = "block";
-    retourBtn.style.margin = "20px auto";
-    retourBtn.addEventListener("click", () => {
-        // questionCounter.style.display = "none";
-        if (questionCounter) questionCounter.style.display = "none";
-        acceuil.style.display = "flex";
-        acceuil.style.flexDirection = "column";
-        acceuil.style.justifyContent = "center";
-        acceuil.style.alignItems = "center";
-        container.style.display = "none";
-        quitterDiv.style.display = "none";
-        timerDisplay.style.display = "none";
-    });
-
-    const exportpdf = document.createElement("button");
-    exportpdf.textContent = "Générer PDF";
-    exportpdf.style.display = "block";
-    exportpdf.addEventListener("click", () => genererPdf(result));
-
-    container.appendChild(retourBtn);
-    container.appendChild(exportpdf);
 }
 
 function afficherTempsTotal(container, tempsTotalSec) {

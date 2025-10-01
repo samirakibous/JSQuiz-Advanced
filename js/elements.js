@@ -1,3 +1,8 @@
+import {genererPdf} from './rapportPdf.js';
+import { questionCounter,timerDisplay } from './quiz.js';
+import {quitterDiv} from './pseudo.js';
+const acceuil = document.querySelector(".bouton-acceuil")
+
 export function creerQuestionContainer() {
     const quizDiv = document.querySelector(".quiz");
 
@@ -31,4 +36,31 @@ export function creerControlButtons() {
     suivantBtn.textContent = 'suivant';
     controlButtons.appendChild(validerButton);
     controlButtons.appendChild(suivantBtn);
+}
+
+//fonction pour création des boutons dans le resultat final
+export function ajouterBoutons(container, result) {
+    const retourBtn = document.createElement("button");
+    retourBtn.textContent = "Retour à l'accueil";
+    retourBtn.style.display = "block";
+    retourBtn.style.margin = "20px auto";
+    retourBtn.addEventListener("click", () => {
+        // questionCounter.style.display = "none";
+        if (questionCounter) questionCounter.style.display = "none";
+        acceuil.style.display = "flex";
+        acceuil.style.flexDirection = "column";
+        acceuil.style.justifyContent = "center";
+        acceuil.style.alignItems = "center";
+        container.style.display = "none";
+        quitterDiv.style.display = "none";
+        timerDisplay.style.display = "none";
+    });
+
+    const exportpdf = document.createElement("button");
+    exportpdf.textContent = "Générer PDF";
+    exportpdf.style.display = "block";
+    exportpdf.addEventListener("click", () => genererPdf(result));
+
+    container.appendChild(retourBtn);
+    container.appendChild(exportpdf);
 }
